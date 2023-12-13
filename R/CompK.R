@@ -1,0 +1,64 @@
+#' Compute Capital Stock in Chinese Provinces
+#'
+#' This function compute capital stock of provinces in China using the method by Zhang (2008) or
+#' Chen (2020).
+#'
+#' @param prv a province name, a scalar character. It's Chinese phonetic alphabets.
+#' @param method a string. \code{'ZJ'} by Zhang (2008) or \code{'CP'} by Chen (2020).
+#' @param startyr a numeric scalar. When use the method by Chen (2020), \code{delta} is
+#' used before \code{startyr}, and after \code{startyr} depreciation in data \code{asset} is used.
+#' When use the method by Zhang (2008), the parameters is not useful.
+#' @param yr a numeric vector about years. If you only need capital stock before 2022,
+#'  you can use its default \code{NULL}. If you need to compute capital stocks after 2022,
+#'  you can set, for example, \code{yr = c(2023,2024)}.
+#' @param invest a numeric vector about investment, its length equal the length of
+#' \code{yr}, and its units is 100 million in current price.
+#' @param InvestPrice a numeric vector about price indices of investment,
+#' its length equal the length of \code{yr}, and it is a fixed base index
+#' with equaling 1 in \code{bt}.
+#' @param depr a numeric vector about depreciation,its length equal the length of \code{yr},
+#' and its units is 100 million in current price. If use the method \code{'ZJ'}, the parameter
+#'  is not useful.
+#' @param delta a rate of depreciation, a scalar number.
+
+#' @param bt a scalar number, such as 2000. It means computing capital stock with its price equal
+#'  1 in \code{bt}
+#' @note The parameter \code{InvestPrice} is a fixed base index with equaling 1 in 1952 by default.
+#' However, we often only get a price indices of investment with equaling 1
+#' in last year. You can use \code{data(asset)} to get \code{InvestPrice}
+#' in any year (before 2017) with equaling 1 in 1952. So, it is easy then.
+#'
+#' @return The function return a data.frame, and its 1st column is province, 2nd column
+#'    is year, 3rd column is capital stock, 4th column is the price index of investment.
+#' @references Zhang, J., Estimation of China's provincial capital stock (1952-2004) with
+#' applications. \emph{Journal of Chinese Economic and Business Studies}, 2008. 6(2): p. 177-196.
+#' @examples
+#' # Compute capital stock in Xinjiang province in 1952-2017
+#' CompK(prv = 'xinjiang')
+#' # Compute capital stock in Xinjiang province in 1952-2017 with its price equaling 1 in 2000
+#' CompK(prv = 'xinjiang', bt = 2000)
+#' # compute capital stock in Beijing in 2023 and 2024
+#' CompK(yr = 2023:2024, invest = c(10801.2,11100),
+#'    InvestPrice = c(1.86*1.03,1.86*1.03*1.021),
+#'    prv = 'beijing',delta = 0.096)
+#' # ...
+#' # beijing 2023 42043.06533   1.9158000
+#' # beijing 2024 43681.68543   1.9560318
+#' # Compute capital stock in chongqing with its price equaling 1 in 1992 based on
+#' # Chen and Wan (2020)
+#' CompK(prv = 'chongqing', method = 'CP', startyr = 1996, bt = 1992)
+#'
+#' @export
+
+
+CompK <- function(prv, method = 'ZJ', startyr = 1996, yr = NULL, invest = NULL, InvestPrice = NULL,
+                     depr = NULL, delta = 0.096,  bt = 1952){
+  if (method == 'ZJ'){
+    ans <- CompK_ZJ(prv = prv, yr = yr, invest = invest, InvestPrice = InvestPrice,
+             delta = delta,  bt = bt)
+  }else if (method == 'CP'){
+    ans <- CompK_CP(prv = prv, startyr = startyr, yr = yr, invest = invest, InvestPrice = InvestPrice,
+                    depr = depr, delta = delta,  bt = bt)
+  }
+  return(ans)
+}

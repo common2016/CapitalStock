@@ -1,0 +1,22 @@
+Package: CHNCapitalStock
+Title: Compute Chinese Capital Stocks
+Version: 0.1.1
+Authors@R: 
+    person(given = "Pu",
+           family = "Chen",
+           role = c("aut","cre"),
+           email = "shengnehs@qq.com")
+Description: Compute Chinese capital stocks in provinces level, based on Zhang (2008) <DOI:10.1080/14765280802028302>. 
+License: GPL-2
+Encoding: UTF-8
+LazyData: true
+URL: https://github.com/common2016/CapitalStock
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Language: en-US
+Depends: 
+    R (>= 2.10)
+Imports: 
+    dplyr
+Suggests: 
+    testthat
