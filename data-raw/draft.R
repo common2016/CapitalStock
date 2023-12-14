@@ -21,3 +21,6 @@ CompK(prv = 'chongqing') %$% .[yr == 1952 | yr == 1960,]
 CompK(prv = 'hebei', bt = 2000) %$% .[yr == 1952 | yr == 1960 | yr == 1970 | yr == 1978 | yr == 1985 |
                           yr == 1990 | yr == 1995 | yr == 1998 | yr == 2000,]
 
+# 测试
+# rhub::check_for_cran(platforms = 'debian-clang-devel')
+# rhub::check_for_cran(platforms = 'ubuntu-gcc-release')
