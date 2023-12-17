@@ -1,5 +1,5 @@
-<!-- badges: start -->
-  [![Travis build status](https://travis-ci.com/common2016/CapitalStock.svg?branch=master)](https://travis-ci.com/common2016/CapitalStock)
+  <!-- badges: start -->
+  [![R-CMD-check](https://github.com/common2016/CapitalStock/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/common2016/CapitalStock/actions/workflows/R-CMD-check.yaml)
   <!-- badges: end -->
 
 ### 1. 安装
